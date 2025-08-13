@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MMT Ship — Budget Strategy Prototype</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body class="nautical">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="app-header" role="banner">
+      <div class="header-inner">
+        <h1><span class="brand-mark" aria-hidden="true">⛵</span> MMT Ship</h1>
+        <div class="mode-toggle">
+          <label>
+            <input id="modeToggle" type="checkbox" aria-label="Toggle orthodox mode"> Orthodox mode (non-binding)
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <main id="main" class="main" role="main">
+        <!-- Start -->
+        <section id="screen-start" class="screen is-active" aria-labelledby="start-title">
+          <h2 id="start-title">Set Sail</h2>
+          <p>Pick three goals, then choose policies to meet them while maintaining stable inflation and using real resources responsibly. Money is not the constraint—real capacity is.</p>
+          <div class="start-actions">
+            <button id="btnStart" class="btn primary">Start</button>
+          </div>
+        </section>
+
+        <!-- Choose Goals -->
+        <section id="screen-goals" class="screen" aria-labelledby="goals-title">
+          <h2 id="goals-title">Choose up to three goals</h2>
+          <ul id="goalsList" class="card-grid" role="list"></ul>
+          <div class="toolbar">
+            <div id="selectedGoalsPills" class="pill-row" aria-live="polite"></div>
+            <button id="btnProceedPolicies" class="btn cta" disabled title="Choose 3 goals to continue">Proceed to Policies →</button>
+            <span id="goalsHelper" class="muted" aria-live="polite">Choose 3 goals to continue</span>
+          </div>
+        </section>
+
+        <!-- Policies -->
+        <section id="screen-policies" class="screen" aria-labelledby="policies-title">
+          <h2 id="policies-title">Policies</h2>
+          <div class="filters">
+            <div id="categoryChips" class="chip-row" role="tablist" aria-label="Policy categories"></div>
+            <div class="toolbar">
+              <button id="btnViewPlan" class="btn">View Plan</button>
+            </div>
+          </div>
+          <div class="legend" aria-hidden="true">
+            <span class="impact-chip emp"><span class="ico">👥</span>Employment +2</span>
+            <span class="impact-chip cap"><span class="ico">⚙️</span>Capacity +1.0</span>
+            <span class="impact-chip inf"><span class="ico">🔥</span>Inflation +0.10</span>
+            <span class="impact-chip"><span class="ico">⏳</span>4y ramp</span>
+            <span class="impact-chip"><span class="ico">🏷️</span>type</span>
+          </div>
+          <div id="policiesGrid" class="card-grid" role="list"></div>
+        </section>
+
+        <!-- Plan / Results -->
+        <section id="screen-plan" class="screen" aria-labelledby="plan-title">
+          <h2 id="plan-title">Your Plan</h2>
+          <div id="planList" class="plan-list" aria-live="polite"></div>
+          <div class="toolbar">
+            <button id="btnSubmitPlan" class="btn primary">Submit Plan</button>
+            <button id="btnBackToPolicies" class="btn">Back to Policies</button>
+          </div>
+        </section>
+      </main>
+
+      <aside class="sidebar" aria-label="Economy gauges">
+        <section class="gauge" aria-labelledby="inflation-title">
+          <div class="gauge-head">
+            <h3 id="inflation-title">Inflation</h3>
+            <div class="gauge-target">Target band 1.5–3%</div>
+          </div>
+          <div class="sparkline-wrap" aria-hidden="true">
+            <svg id="inflationChart" viewBox="0 0 120 40" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="sr-only" aria-live="polite">
+            <span id="inflationText">Inflation path around 2%.</span>
+          </div>
+        </section>
+
+        <section class="gauge" aria-labelledby="employment-title">
+          <div class="gauge-head">
+            <h3 id="employment-title">Employment</h3>
+          </div>
+          <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="88" aria-labelledby="employment-title">
+            <div id="employmentBar" class="meter-bar" style="width: 88%"></div>
+          </div>
+          <div class="meter-text" id="employmentText">88%</div>
+        </section>
+
+        <section class="gauge" aria-labelledby="capacity-title">
+          <div class="gauge-head">
+            <h3 id="capacity-title">Capacity Use</h3>
+          </div>
+          <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85" aria-labelledby="capacity-title">
+            <div id="capacityBar" class="meter-bar warn" style="width: 85%"></div>
+          </div>
+          <div class="meter-text" id="capacityText">85% (spare: 15%)</div>
+        </section>
+
+        <section class="gauge" aria-labelledby="goalscore-title">
+          <div class="gauge-head">
+            <h3 id="goalscore-title">Selected Goals</h3>
+          </div>
+          <ul id="goalProgress" class="goal-progress" role="list"></ul>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Policy Modal -->
+    <div id="policyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="policyModalTitle" aria-describedby="policyModalDesc" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" aria-label="Close" data-close-modal>&times;</button>
+        <div class="modal-body">
+          <h3 id="policyModalTitle">Policy</h3>
+          <p id="policyModalDesc" class="muted"></p>
+          <div class="modal-columns">
+            <div>
+              <h4>Details</h4>
+              <p id="policyArgumentsFor"></p>
+              <p id="policyArgumentsAgainst" class="muted"></p>
+              <div id="policyImpacts" class="impact-chips"></div>
+            </div>
+            <div>
+              <h4>Goals</h4>
+              <ul id="policyGoalsList" class="mini-list"></ul>
+            </div>
+          </div>
+          <div class="toolbar">
+            <button id="btnChoosePolicy" class="btn primary">Choose</button>
+            <button id="btnRemovePolicy" class="btn danger">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="resultsTitle" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" aria-label="Close" data-close-modal>&times;</button>
+        <div class="modal-body">
+          <h3 id="resultsTitle">Results</h3>
+          <div id="resultsSummary" class="results-summary"></div>
+          <div class="results-tabs">
+            <button class="tab is-active" data-tab="outcomes">Outcomes</button>
+            <button class="tab" data-tab="plan">Your Plan</button>
+          </div>
+          <div id="resultsOutcomes" class="tab-panel is-active"></div>
+          <div id="resultsPlan" class="tab-panel"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="app-footer" role="contentinfo">
+      <p>
+        Inspired by <a href="https://fiscalship.org/" target="_blank" rel="noopener">The Fiscal Ship</a>. This model is an educational simplification framed in Modern Monetary Theory terms.
+      </p>
+    </footer>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html> 
