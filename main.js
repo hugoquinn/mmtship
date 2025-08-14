@@ -115,6 +115,198 @@ const policies = [
     bufferStock: false,
     goalsImpact: { productivity: 2, equality: 1 },
     tags: ['bottlenecks','participation']
+  },
+  {
+    id: 'universal_childcare',
+    name: 'Universal Childcare',
+    category: 'public_services',
+    description: 'Guarantee affordable childcare to expand participation.',
+    argumentsFor: 'Raises labor force participation; supports families.',
+    argumentsAgainst: 'Requires provider capacity buildout; coordination.',
+    type: 'supply',
+    phaseInYears: 3,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.3,
+    supplyImpulse: 0.4,
+    bottleneckRelief: { care: 0.6 },
+    sector: ['care'],
+    capacityUse: 0.6,
+    employmentImpact: 2,
+    inflationImpact: -0.03,
+    inflationPath: Array(25).fill(0).map((_,i)=> i<4 ? 0 : -0.08),
+    stabilizerStrength: 0.2,
+    bufferStock: false,
+    goalsImpact: { equality: 2, full_employment: 1 },
+    tags: ['care','participation']
+  },
+  {
+    id: 'training_apprenticeships',
+    name: 'National Training & Apprenticeships',
+    category: 'productivity',
+    description: 'Scale apprenticeships, on-the-job training, and reskilling.',
+    argumentsFor: 'Boosts productivity and job matching over time.',
+    argumentsAgainst: 'Benefits arrive with a lag; coordination with employers.',
+    type: 'supply',
+    phaseInYears: 3,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.2,
+    supplyImpulse: 0.7,
+    bottleneckRelief: { skills: 0.4 },
+    sector: ['labor'],
+    capacityUse: 0.4,
+    employmentImpact: 1,
+    inflationImpact: -0.02,
+    inflationPath: Array(25).fill(0).map((_,i)=> i<6 ? 0 : -0.07),
+    stabilizerStrength: 0.2,
+    bufferStock: false,
+    goalsImpact: { productivity: 2, invest_in_future: 1 },
+    tags: ['skills','training']
+  },
+  {
+    id: 'transit_infrastructure',
+    name: 'Transit Infrastructure',
+    category: 'climate',
+    description: 'Build rail, buses, and safe streets for access and emissions.',
+    argumentsFor: 'Improves mobility and productivity; lowers emissions.',
+    argumentsAgainst: 'Large upfront resource use; delivery risk.',
+    type: 'mixed',
+    phaseInYears: 4,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.6,
+    supplyImpulse: 0.6,
+    bottleneckRelief: { transport: 0.4 },
+    sector: ['infrastructure'],
+    capacityUse: 0.8,
+    employmentImpact: 1,
+    inflationImpact: 0.08,
+    inflationPath: null,
+    stabilizerStrength: 0.15,
+    bufferStock: false,
+    goalsImpact: { climate: 2, invest_in_future: 1 },
+    tags: ['infrastructure','mobility']
+  },
+  {
+    id: 'immigration_reform',
+    name: 'Immigration Reform',
+    category: 'productivity',
+    description: 'Increase lawful immigration and work authorization.',
+    argumentsFor: 'Boosts labor supply and innovation; eases aging pressures.',
+    argumentsAgainst: 'Political contention; integration capacity.',
+    type: 'supply',
+    phaseInYears: 2,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.1,
+    supplyImpulse: 0.8,
+    bottleneckRelief: { skills: 0.3, care: 0.2 },
+    sector: ['labor'],
+    capacityUse: 0.2,
+    employmentImpact: 2,
+    inflationImpact: -0.05,
+    inflationPath: null,
+    stabilizerStrength: 0.1,
+    bufferStock: false,
+    goalsImpact: { productivity: 1, equality: 1 },
+    tags: ['labor-supply']
+  },
+  {
+    id: 'antitrust_enforcement',
+    name: 'Antitrust & Competition Enforcement',
+    category: 'productivity',
+    description: 'Strengthen competition policy and curb monopoly pricing power.',
+    argumentsFor: 'Improves pricing dynamics and innovation.',
+    argumentsAgainst: 'Legal process is slow; uncertain outcomes.',
+    type: 'supply',
+    phaseInYears: 2,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.0,
+    supplyImpulse: 0.5,
+    bottleneckRelief: { markets: 0.3 },
+    sector: ['markets'],
+    capacityUse: 0.0,
+    employmentImpact: 0,
+    inflationImpact: -0.10,
+    inflationPath: null,
+    stabilizerStrength: 0.1,
+    bufferStock: false,
+    goalsImpact: { productivity: 2 },
+    tags: ['competition','prices']
+  },
+  {
+    id: 'public_housing_buildout',
+    name: 'Public Housing Buildout',
+    category: 'public_services',
+    description: 'Build social housing to improve affordability and stability.',
+    argumentsFor: 'Reduces rent pressure; stabilizes communities.',
+    argumentsAgainst: 'High material demand; build capacity needed.',
+    type: 'mixed',
+    phaseInYears: 4,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.7,
+    supplyImpulse: 0.5,
+    bottleneckRelief: { construction: 0.3 },
+    sector: ['housing'],
+    capacityUse: 1.2,
+    employmentImpact: 2,
+    inflationImpact: 0.12,
+    inflationPath: null,
+    stabilizerStrength: 0.2,
+    bufferStock: false,
+    goalsImpact: { equality: 2, invest_in_future: 1 },
+    tags: ['housing']
+  },
+  {
+    id: 'payroll_tax_holiday',
+    name: 'Temporary Payroll Tax Holiday',
+    category: 'taxes',
+    description: 'Cut payroll taxes temporarily as a countercyclical boost.',
+    argumentsFor: 'Quick demand support; raises take-home pay.',
+    argumentsAgainst: 'Less targeted than direct hiring; sunset needed.',
+    type: 'demand',
+    phaseInYears: 1,
+    durationYears: 5,
+    decayAfterYears: 2,
+    demandImpulse: 0.6,
+    supplyImpulse: 0.0,
+    bottleneckRelief: {},
+    sector: ['tax'],
+    capacityUse: 0.5,
+    employmentImpact: 1,
+    inflationImpact: 0.10,
+    inflationPath: null,
+    stabilizerStrength: 0.2,
+    bufferStock: false,
+    goalsImpact: { full_employment: 1 },
+    tags: ['countercyclical']
+  },
+  {
+    id: 'rd_grants',
+    name: 'R&D Grants',
+    category: 'productivity',
+    description: 'Public R&D and innovation grants to accelerate technology.',
+    argumentsFor: 'Raises long-run productivity; positive spillovers.',
+    argumentsAgainst: 'Payoff uncertain; requires governance.',
+    type: 'supply',
+    phaseInYears: 3,
+    durationYears: 25,
+    decayAfterYears: 0,
+    demandImpulse: 0.2,
+    supplyImpulse: 0.9,
+    bottleneckRelief: { innovation: 0.4 },
+    sector: ['research'],
+    capacityUse: 0.3,
+    employmentImpact: 0,
+    inflationImpact: -0.02,
+    inflationPath: Array(25).fill(0).map((_,i)=> i<8 ? 0 : -0.08),
+    stabilizerStrength: 0.1,
+    bufferStock: false,
+    goalsImpact: { invest_in_future: 2, productivity: 2 },
+    tags: ['innovation','research']
   }
 ];
 
@@ -164,8 +356,7 @@ const els = {
   employmentBar: document.getElementById('employmentBar'),
   employmentText: document.getElementById('employmentText'),
   capacityBar: document.getElementById('capacityBar'),
-  capacityText: document.getElementById('capacityText'),
-  modeToggle: document.getElementById('modeToggle')
+  capacityText: document.getElementById('capacityText')
 };
 
 // Policy Modal elements
@@ -283,9 +474,9 @@ function categoryIcon(id){
 
 function compactPolicyImpacts(p) {
   const chips = [];
-  if (p.employmentImpact) chips.push({ text: `${p.employmentImpact>0?'+':''}${p.employmentImpact}`, title: `Employment impact: ${p.employmentImpact>0?'+':''}${p.employmentImpact} pp`, icon: '👥', className: `emp ${p.employmentImpact<0?'neg':''}` });
-  if (p.capacityUse) chips.push({ text: `${p.capacityUse>0?'+':''}${p.capacityUse}`, title: `Capacity use: ${p.capacityUse>0?'+':''}${p.capacityUse}`, icon: '⚙️', className: `cap ${p.capacityUse<0?'neg':''}` });
-  if (p.inflationImpact) chips.push({ text: `${p.inflationImpact>0?'+':''}${p.inflationImpact}`, title: `Inflation impact: ${p.inflationImpact>0?'+':''}${p.inflationImpact} per year (before buffers)`, icon: '🔥', className: `inf ${p.inflationImpact<0?'neg':''}` });
+  if (p.employmentImpact) chips.push({ text: `Employment ${p.employmentImpact>0?'+':''}${p.employmentImpact}`, title: `Employment impact: ${p.employmentImpact>0?'+':''}${p.employmentImpact} pp`, icon: '👥', className: `emp ${p.employmentImpact<0?'neg':''}` });
+  if (p.capacityUse) chips.push({ text: `Capacity ${p.capacityUse>0?'+':''}${p.capacityUse}`, title: `Capacity use: ${p.capacityUse>0?'+':''}${p.capacityUse}`, icon: '⚙️', className: `cap ${p.capacityUse<0?'neg':''}` });
+  if (p.inflationImpact) chips.push({ text: `Inflation ${p.inflationImpact>0?'+':''}${p.inflationImpact}`, title: `Inflation impact: ${p.inflationImpact>0?'+':''}${p.inflationImpact} per year (before buffers)`, icon: '🔥', className: `inf ${p.inflationImpact<0?'neg':''}` });
   if (p.phaseInYears) chips.push({ text: `${p.phaseInYears}y ramp`, title: `Phase-in period: ${p.phaseInYears} years`, icon: '⏳', className: '' });
   if (p.type) chips.push({ text: p.type, title: `Policy type: ${p.type}`, icon: '🏷️', className: '' });
   return chips;
@@ -331,7 +522,13 @@ function drawInflationGauge() {
     const y = h - ((v - minY) / (maxY - minY || 1)) * h;
     return `${x.toFixed(2)},${y.toFixed(2)}`;
   }).join(' ');
-  els.inflationChart.innerHTML = `<polyline points="${points}" fill="none" stroke="#6de0ff" stroke-width="2" />`;
+  const lastIdx = state.inflationPath.length - 1;
+  const lastX = (lastIdx/(state.inflationPath.length-1)) * w;
+  const lastY = h - ((state.inflationPath[lastIdx] - minY) / (maxY - minY || 1)) * h;
+  els.inflationChart.innerHTML = `
+    <polyline points="${points}" fill="none" stroke="#1261ff" stroke-width="2" />
+    <polygon class="boat-marker" points="${(lastX-2).toFixed(2)},${(lastY+2).toFixed(2)} ${lastX.toFixed(2)},${(lastY-3).toFixed(2)} ${(lastX+2).toFixed(2)},${(lastY+2).toFixed(2)}" />
+  `;
   const last = state.inflationPath[state.inflationPath.length-1].toFixed(2);
   const max = Math.max(...state.inflationPath).toFixed(2);
   els.inflationText.textContent = `Inflation ends at ${last}%, max ${max}% over 25 years.`;
@@ -458,22 +655,30 @@ function submitPlan() {
   if (!capOk) unmet.push(`Capacity too tight (${Math.round(state.capacityUtilization)}%).`);
   if (!goalsOk) unmet.push('Some goals below 3 points.');
 
-  resultsSummary.innerHTML = `
-    <p>${ok ? 'You win! Stable inflation and resources with goals met.' : 'Not quite. Here’s what to improve:'}</p>
-    ${unmet.length ? `<ul>${unmet.map(x=>`<li>${x}</li>`).join('')}</ul>` : ''}
-  `;
+  resultsSummary.innerHTML = `<p>${ok ? 'You win! 🌈 Calm seas and steady prices.' : 'Not quite. 🌊 Here’s what to improve:'}</p>`;
 
-  // Outcomes tab
-  const max = maxInfl.toFixed(2);
-  const end = state.inflationPath[state.inflationPath.length-1].toFixed(2);
-  resultsOutcomes.innerHTML = `
-    <p>Inflation: end ${end}%, max ${max}%.</p>
-    <p>Employment: ${Math.round(state.employment)}%.</p>
-    <p>Capacity use: ${Math.round(state.capacityUtilization)}% (spare ${Math.max(0,100-Math.round(state.capacityUtilization))}%).</p>
-  `;
+  // Fill stat cards
+  document.getElementById('statInflationValue').textContent = `${maxInfl.toFixed(2)}% / ${state.inflationPath[state.inflationPath.length-1].toFixed(2)}%`;
+  document.getElementById('statEmploymentValue').textContent = `${Math.round(state.employment)}%`;
+  document.getElementById('statCapacityValue').textContent = `${Math.round(state.capacityUtilization)}%`;
 
-  // Plan tab
-  resultsPlan.innerHTML = state.chosenPolicies.map(p => `
+  // Draw a larger chart
+  drawResultsChart();
+
+  // Goals grid
+  const goalsHtml = state.selectedGoals.map(id => {
+    const g = goals.find(x => x.id===id);
+    const score = state.goalScores[id] || 0;
+    const pct = Math.max(0, Math.min(100, (score/3)*100));
+    return `<div class="results-goal"><span>${goalIcon(id)} ${g ? g.name : id}</span><span class="bar"><span style="width:${pct}%"></span></span><span class="muted">${score}/3</span></div>`;
+  }).join('');
+  document.getElementById('resultsGoals').innerHTML = goalsHtml;
+
+  // Unmet list
+  document.getElementById('resultsUnmet').innerHTML = unmet.length ? `<ul>${unmet.map(x=>`<li>${x}</li>`).join('')}</ul>` : '';
+
+  // Plan inline
+  document.getElementById('resultsPlanInline').innerHTML = state.chosenPolicies.map(p => `
     <div class="plan-item">
       <div>
         <div class="title">${p.name}</div>
@@ -482,13 +687,20 @@ function submitPlan() {
     </div>
   `).join('');
 
-  // Reset active tab to Outcomes each submit
-  const tabs = resultsModal.querySelectorAll('.tab');
-  tabs.forEach(t => t.classList.toggle('is-active', t.getAttribute('data-tab') === 'outcomes'));
-  resultsOutcomes.classList.add('is-active');
-  resultsPlan.classList.remove('is-active');
-
   openModal(resultsModal);
+}
+
+function drawResultsChart(){
+  const w = 240, h = 60;
+  const arr = state.inflationPath;
+  const maxY = Math.max(4, ...arr);
+  const minY = Math.min(1, ...arr);
+  const pts = arr.map((v, i) => {
+    const x = (i/(arr.length-1)) * w;
+    const y = h - ((v - minY) / (maxY - minY || 1)) * h;
+    return `${x.toFixed(2)},${y.toFixed(2)}`;
+  }).join(' ');
+  document.getElementById('resultsChart').innerHTML = `<polyline points="${pts}" fill="none" stroke="#1261ff" stroke-width="2" />`;
 }
 
 // Results tabs switching
@@ -510,11 +722,6 @@ function attachGlobalListeners() {
   els.btnViewPlan.addEventListener('click', () => { renderPlanList(); showScreen('plan'); });
   els.btnBackToPolicies.addEventListener('click', () => { showScreen('policies'); });
   els.btnSubmitPlan.addEventListener('click', submitPlan);
-
-  // Mode toggle
-  if (els.modeToggle) els.modeToggle.addEventListener('change', (e) => {
-    state.orthodoxMode = !!e.target.checked;
-  });
 
   // Goal select via delegation
   els.goalsList.addEventListener('click', (e) => {

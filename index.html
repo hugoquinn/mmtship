@@ -12,11 +12,6 @@
     <header class="app-header" role="banner">
       <div class="header-inner">
         <h1><span class="brand-mark" aria-hidden="true">⛵</span> MMT Ship</h1>
-        <div class="mode-toggle">
-          <label>
-            <input id="modeToggle" type="checkbox" aria-label="Toggle orthodox mode"> Orthodox mode (non-binding)
-          </label>
-        </div>
       </div>
     </header>
 
@@ -65,8 +60,8 @@
         <section id="screen-plan" class="screen" aria-labelledby="plan-title">
           <h2 id="plan-title">Your Plan</h2>
           <div id="planList" class="plan-list" aria-live="polite"></div>
-          <div class="toolbar">
-            <button id="btnSubmitPlan" class="btn primary">Submit Plan</button>
+          <div class="toolbar sticky-bottom">
+            <button id="btnSubmitPlan" class="btn primary xl glow" title="Submit your plan and view results">Submit Plan ⛵</button>
             <button id="btnBackToPolicies" class="btn">Back to Policies</button>
           </div>
         </section>
@@ -129,6 +124,7 @@
               <p id="policyArgumentsFor"></p>
               <p id="policyArgumentsAgainst" class="muted"></p>
               <div id="policyImpacts" class="impact-chips"></div>
+              <p id="policyChipsNote" class="muted small-note">Employment = jobs added in percentage points; Capacity = real resources used (higher means tighter); Inflation = annual price pressure before buffers and lags.</p>
             </div>
             <div>
               <h4>Goals</h4>
@@ -151,12 +147,37 @@
         <div class="modal-body">
           <h3 id="resultsTitle">Results</h3>
           <div id="resultsSummary" class="results-summary"></div>
-          <div class="results-tabs">
-            <button class="tab is-active" data-tab="outcomes">Outcomes</button>
-            <button class="tab" data-tab="plan">Your Plan</button>
+
+          <div class="results-grid">
+            <div class="stat-card">
+              <div class="stat-icon">🔥</div>
+              <div id="statInflationValue" class="stat-value">—</div>
+              <div class="stat-label">Inflation (max / end)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div id="statEmploymentValue" class="stat-value">—</div>
+              <div class="stat-label">Employment</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">⚙️</div>
+              <div id="statCapacityValue" class="stat-value">—</div>
+              <div class="stat-label">Capacity Use</div>
+            </div>
           </div>
-          <div id="resultsOutcomes" class="tab-panel is-active"></div>
-          <div id="resultsPlan" class="tab-panel"></div>
+
+          <div class="results-charts">
+            <svg id="resultsChart" viewBox="0 0 240 60" preserveAspectRatio="none"></svg>
+          </div>
+
+          <div class="results-goals" id="resultsGoals"></div>
+
+          <div class="results-unmet" id="resultsUnmet"></div>
+
+          <div class="results-plan-preview">
+            <h4>Your Plan</h4>
+            <div id="resultsPlanInline" class="plan-list"></div>
+          </div>
         </div>
       </div>
     </div>
